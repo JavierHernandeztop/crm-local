@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# CRM Local — user data and distribution artifacts
+/data/
+/dist/
+/public/uploads/

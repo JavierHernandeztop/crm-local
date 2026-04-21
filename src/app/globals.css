@@ -1,26 +1,195 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand-hue: 221;
+  --radius: 0.75rem;
+
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(222 20% 12%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(222 20% 12%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(222 20% 12%);
+
+  --primary: hsl(var(--brand-hue) 75% 52%);
+  --primary-foreground: hsl(0 0% 100%);
+
+  --secondary: hsl(var(--brand-hue) 30% 96%);
+  --secondary-foreground: hsl(222 20% 18%);
+
+  --muted: hsl(220 15% 96%);
+  --muted-foreground: hsl(220 10% 45%);
+
+  --accent: hsl(var(--brand-hue) 70% 96%);
+  --accent-foreground: hsl(var(--brand-hue) 70% 25%);
+
+  --destructive: hsl(0 72% 52%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  --success: hsl(150 60% 40%);
+  --warning: hsl(35 90% 50%);
+
+  --border: hsl(220 14% 91%);
+  --input: hsl(220 14% 91%);
+  --ring: hsl(var(--brand-hue) 75% 52%);
+}
+
+.dark {
+  --background: hsl(222 24% 8%);
+  --foreground: hsl(210 20% 96%);
+  --card: hsl(222 22% 11%);
+  --card-foreground: hsl(210 20% 96%);
+  --popover: hsl(222 22% 11%);
+  --popover-foreground: hsl(210 20% 96%);
+
+  --primary: hsl(var(--brand-hue) 80% 60%);
+  --primary-foreground: hsl(222 25% 10%);
+
+  --secondary: hsl(222 18% 16%);
+  --secondary-foreground: hsl(210 20% 96%);
+
+  --muted: hsl(222 18% 16%);
+  --muted-foreground: hsl(220 10% 65%);
+
+  --accent: hsl(var(--brand-hue) 40% 18%);
+  --accent-foreground: hsl(var(--brand-hue) 90% 85%);
+
+  --destructive: hsl(0 72% 55%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  --success: hsl(150 55% 50%);
+  --warning: hsl(35 95% 60%);
+
+  --border: hsl(222 18% 20%);
+  --input: hsl(222 18% 20%);
+  --ring: hsl(var(--brand-hue) 80% 60%);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans:
+    var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html,
+  body {
+    height: 100%;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background-color: color-mix(in oklch, var(--primary) 30%, transparent);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklch, var(--muted-foreground) 25%, transparent);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklch, var(--muted-foreground) 45%, transparent);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .glass {
+    background: color-mix(in oklch, var(--card) 70%, transparent);
+    backdrop-filter: blur(12px);
+  }
+  .animate-in-fade {
+    animation: fade-in 0.2s ease-out;
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Brand-colored hover glow. Uses --brand-hue so it adapts to the user's theme. */
+  .brand-glow {
+    transition:
+      box-shadow 200ms ease-out,
+      border-color 200ms ease-out,
+      transform 200ms ease-out;
+  }
+  .brand-glow:hover {
+    border-color: color-mix(in oklch, var(--primary) 40%, var(--border));
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--primary) 25%, transparent),
+      0 8px 28px -8px color-mix(in oklch, var(--primary) 45%, transparent),
+      0 2px 6px -2px color-mix(in oklch, black 15%, transparent);
+  }
+  .dark .brand-glow:hover {
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--primary) 40%, transparent),
+      0 8px 32px -8px color-mix(in oklch, var(--primary) 55%, transparent);
+  }
+
+  /* Sidebar gradient that adapts to light/dark */
+  .sidebar-gradient {
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklch, var(--card) 88%, var(--primary) 4%) 0%,
+      color-mix(in oklch, var(--card) 96%, transparent) 70%,
+      var(--card) 100%
+    );
+  }
+  .dark .sidebar-gradient {
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklch, var(--card) 85%, var(--primary) 8%) 0%,
+      var(--card) 60%,
+      color-mix(in oklch, var(--background) 90%, var(--card) 10%) 100%
+    );
+  }
 }

@@ -1,0 +1,100 @@
+================================================================
+ CRM LOCAL · Guía rápida para empezar
+================================================================
+
+¿Qué es esto?
+-------------
+Un CRM (gestor de contactos y ventas) que corre directamente
+en tu computadora. Todos tus datos se guardan en tu equipo —
+no se suben a internet, no requieren cuenta, no pagan mensualidad.
+
+Cómo arrancarlo (macOS)
+-----------------------
+1. Haz DOBLE CLICK en el archivo "Iniciar CRM.command"
+2. Si es la primera vez, la ventana negra instalará todo solo
+   (tarda 1 o 2 minutos).
+3. Al terminar, tu navegador se abrirá automáticamente con el CRM.
+4. DEJA LA VENTANA NEGRA ABIERTA mientras uses el CRM.
+   Si la cierras, el CRM se apaga.
+
+   La primera vez, macOS puede pedirte que confirmes que quieres
+   abrir el archivo (por seguridad). Haz click derecho en
+   "Iniciar CRM.command" → "Abrir" → "Abrir" de nuevo. Solo la
+   primera vez.
+
+Cómo arrancarlo (Windows)
+-------------------------
+1. Haz DOBLE CLICK en "Iniciar CRM.bat"
+2. Acepta si Windows pregunta (clic en "Más información" →
+   "Ejecutar de todas formas" — es porque no tiene firma digital).
+3. Espera a que termine la instalación la primera vez.
+4. Tu navegador se abrirá solo. Deja la ventana negra abierta.
+
+¿Y si NO tengo Node.js?
+-----------------------
+Si te sale un mensaje diciendo que falta Node.js, el script
+abrirá automáticamente la página de descarga.
+Instálalo (es gratis), y vuelve a hacer doble click en
+"Iniciar CRM" para arrancar.
+
+                ──────────  Uso diario  ──────────
+
+- La primera vez te aparece un asistente de bienvenida para
+  configurar: nombre del negocio, moneda, color de marca y
+  las etapas de tu pipeline.
+
+- Desde el menú puedes ir a:
+    • Dashboard          → resumen y métricas
+    • Pipeline           → tus leads en tarjetas arrastrables
+    • Contactos          → lista completa con búsqueda
+    • Clientes cerrados  → lo que ya vendiste
+    • Ajustes            → nombre, logo, color, etapas, tema
+
+- En cada tarjeta del pipeline tienes un botón verde de
+  WhatsApp para escribirle al contacto en un click (si tiene
+  número de teléfono).
+
+- La campana arriba a la derecha avisa cuando un lead lleva
+  1, 3 o 7 días sin contacto, y cuando se crea uno nuevo.
+
+                ──────────  Tus datos  ──────────
+
+Todo se guarda en la subcarpeta "data/" dentro de esta misma
+carpeta del CRM. El archivo importante es:
+
+    data/crm.db
+
+Para hacer COPIA DE SEGURIDAD:
+    Copia "data/crm.db" a otra ubicación (USB, Dropbox, etc.)
+    Puedes hacerlo cuando quieras, incluso con el CRM abierto.
+
+Para RESTAURAR desde una copia:
+    Cierra el CRM. Reemplaza data/crm.db por tu copia. Abre de nuevo.
+
+Si quieres MUDAR el CRM a otra computadora:
+    Copia TODA la carpeta (con data/ y todo) a la otra máquina.
+
+                ──────────  Problemas  ──────────
+
+· La ventana negra se cierra sola al terminar de instalar?
+    → Vuelve a hacer doble click. El segundo arranque es rápido.
+
+· Puerto 3000 ocupado?
+    → El script intenta automáticamente con 3001, 3002, etc.
+      Mira la URL en la ventana negra.
+
+· "No tengo permiso para ejecutar el archivo" (macOS)?
+    → Click DERECHO en "Iniciar CRM.command" → Abrir → Abrir.
+
+· El CRM se quedó sin datos después de mudar la carpeta?
+    → Asegúrate de haber copiado también la subcarpeta data/.
+
+                ──────────  Desinstalar  ──────────
+
+Borra toda esta carpeta. Eso es todo.
+No queda nada en tu sistema aparte de Node.js, que es una
+herramienta genérica que puedes conservar o desinstalar aparte.
+
+================================================================
+ ¿Dudas? Contacta a quien te compartió este CRM.
+================================================================
