@@ -2,13 +2,6 @@
 
 > CRM moderno y 100% local para pequeños y medianos negocios. Tus datos viven en un archivo SQLite dentro de la carpeta del proyecto — nunca salen de tu computadora, no hay servidor externo, no hay cuotas.
 
-<!-- Reemplaza este bloque con una captura real antes de publicar: docs/screenshot.png -->
-<p align="center">
-  <img src="docs/screenshot.png" alt="Captura de pantalla del CRM" width="820" />
-  <br/>
-  <sub><em>Dashboard principal — claro u oscuro, con color de marca personalizable.</em></sub>
-</p>
-
 ---
 
 ## Qué es esto
@@ -45,7 +38,7 @@ Un CRM completo que corre en `localhost`, pensado para **equipos pequeños que n
 
 ```bash
 # 1. Clona el repo
-git clone https://github.com/TU-USUARIO/crm-local.git
+git clone https://github.com/JavierHernandeztop/crm-local.git
 cd crm-local
 
 # 2. Instala dependencias
@@ -153,7 +146,7 @@ npm run package    # genera zip distribuible en dist/
 
 ## Licencia
 
-MIT — ver [LICENSE](./LICENSE) si aplica.
+MIT © [Javier Hernandez](https://github.com/JavierHernandeztop) — ver [LICENSE](./LICENSE).
 
 ## Créditos
 
