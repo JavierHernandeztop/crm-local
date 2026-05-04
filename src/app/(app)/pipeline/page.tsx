@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-import { Settings2 } from "lucide-react";
+import { Filter, Settings2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { listContactsByStage, listStages } from "@/lib/queries";
@@ -37,10 +37,25 @@ export default function PipelinePage() {
       </div>
 
       {stages.length === 0 ? (
-        <div className="border border-dashed border-border rounded-xl py-16 text-center">
-          <p className="text-muted-foreground mb-4">
-            Aún no has configurado etapas de tu pipeline.
-          </p>
+        <div className="border border-dashed border-border rounded-xl py-16 px-6 text-center flex flex-col items-center gap-4">
+          <div className="relative">
+            <div
+              aria-hidden
+              className="absolute inset-0 rounded-full bg-primary/10 blur-2xl"
+            />
+            <div className="relative inline-flex h-16 w-16 items-center justify-center rounded-full bg-accent text-primary">
+              <Filter className="h-8 w-8" strokeWidth={1.5} />
+            </div>
+          </div>
+          <div className="space-y-1 max-w-sm">
+            <h3 className="font-semibold text-lg">
+              Tu primer lead está a un reel de distancia
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              Configura las etapas de tu pipeline y empieza a mover contactos
+              por tu proceso de venta.
+            </p>
+          </div>
           <Button asChild>
             <Link href="/ajustes#etapas">Configurar etapas</Link>
           </Button>

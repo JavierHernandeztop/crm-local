@@ -30,6 +30,7 @@ import {
   Plus,
   GripVertical,
   ExternalLink,
+  Inbox,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -195,7 +196,7 @@ export function KanbanBoard({
         {activeCard ? (
           <motion.div
             initial={{ scale: 1, rotate: 0 }}
-            animate={{ scale: 1.03, rotate: 2 }}
+            animate={{ scale: 1.02, rotate: 2 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
             <Card contact={activeCard} isOverlay />
@@ -219,13 +220,19 @@ function KanbanColumn({
     <div className="w-[300px] shrink-0 snap-start flex flex-col bg-muted/30 rounded-xl border border-border">
       <div className="flex items-center gap-2 p-3 border-b border-border">
         <span
-          className="h-2.5 w-2.5 rounded-full shrink-0"
+          className="h-3 w-3 rounded-full shrink-0"
           style={{ backgroundColor: column.stage.color }}
         />
         <span className="font-medium text-sm truncate flex-1">
           {column.stage.name}
         </span>
-        <span className="text-xs text-muted-foreground font-medium bg-background rounded-full px-2 py-0.5">
+        <span
+          className="text-xs font-semibold rounded-full px-2 py-0.5 tabular-nums"
+          style={{
+            backgroundColor: `${column.stage.color}20`,
+            color: column.stage.color,
+          }}
+        >
           {total}
         </span>
       </div>
@@ -246,8 +253,9 @@ function KanbanColumn({
               ))}
             </AnimatePresence>
             {column.contacts.length === 0 && (
-              <div className="text-xs text-muted-foreground text-center py-6 italic">
-                Suelta una tarjeta aquí
+              <div className="flex flex-col items-center justify-center gap-2 py-8 text-muted-foreground/50">
+                <Inbox className="h-8 w-8" strokeWidth={1.5} />
+                <span className="text-xs italic">Suelta una tarjeta aquí</span>
               </div>
             )}
           </DroppableColumnArea>
@@ -342,13 +350,21 @@ function Card({
 
   return (
     <div
+      style={{ "--stage-color": contact.stage_color } as React.CSSProperties}
       className={cn(
-        "bg-card rounded-lg border border-border p-3 shadow-xs cursor-grab active:cursor-grabbing group",
-        !isOverlay && "brand-glow",
+        "relative bg-card rounded-lg border border-border p-3 shadow-xs cursor-grab active:cursor-grabbing group transition-all duration-200",
+        !isOverlay &&
+          "hover:-translate-y-0.5 hover:shadow-md hover:[border-color:var(--stage-color)]",
         isOverlay && "shadow-xl ring-2 ring-primary/40",
-        stale && "border-destructive/40",
+        stale && !isOverlay && "border-destructive/40",
       )}
     >
+      {stale && (
+        <span
+          aria-label={`Sin movimiento por ${days} días`}
+          className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-card animate-pulse"
+        />
+      )}
       <div className="flex items-start gap-2">
         <GripVertical className="h-4 w-4 text-muted-foreground/40 shrink-0 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity" />
         <div className="min-w-0 flex-1">

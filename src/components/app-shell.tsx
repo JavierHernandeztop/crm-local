@@ -74,10 +74,10 @@ export function AppShell({
             href={item.href}
             onClick={onNavigate}
             className={cn(
-              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium border-l-[3px] border-l-transparent transition duration-150",
               active
-                ? "bg-accent text-accent-foreground"
-                : "text-muted-foreground hover:bg-accent/50 hover:text-foreground",
+                ? "border-l-primary bg-accent/40 text-foreground"
+                : "text-muted-foreground hover:bg-white/5 hover:text-foreground",
             )}
           >
             <Icon className="h-4 w-4" />

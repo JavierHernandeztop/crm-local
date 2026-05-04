@@ -75,13 +75,16 @@ export default async function ContactsPage({
                     const reference = c.last_note_at ?? c.last_contacted_at ?? c.created_at;
                     const days = daysSince(reference);
                     const hasNote = c.last_note_at != null;
-                    const stale =
-                      !c.stage_is_won && !c.stage_is_lost && (days ?? 0) >= 3;
+                    const hasAnyContact = hasNote || !!c.last_contacted_at;
+                    const isClosed =
+                      c.stage_is_won === 1 || c.stage_is_lost === 1;
+                    const daysDanger =
+                      hasAnyContact && !isClosed && (days ?? 0) >= 7;
                     return (
                       <ContactRow
                         key={c.id}
                         contactId={c.id}
-                        className="border-b border-border last:border-b-0 transition-colors cursor-pointer hover:bg-[color-mix(in_oklch,var(--primary)_6%,transparent)]"
+                        className="border-b border-border last:border-b-0 transition-colors duration-150 cursor-pointer hover:bg-white/5"
                       >
                         <td className="py-3 px-4">
                           <Link
@@ -129,11 +132,16 @@ export default async function ContactsPage({
                         <td className="py-3 px-4 text-muted-foreground">
                           {c.source || "—"}
                         </td>
-                        <td className="py-3 px-4">
+                        <td
+                          className={cn(
+                            "py-3 px-4 transition-colors",
+                            daysDanger && "bg-red-500/10",
+                          )}
+                        >
                           <DaysWithoutContactBadge
                             days={days}
-                            hasAnyContact={hasNote || !!c.last_contacted_at}
-                            isClosed={c.stage_is_won === 1 || c.stage_is_lost === 1}
+                            hasAnyContact={hasAnyContact}
+                            isClosed={isClosed}
                           />
                         </td>
                         <td className="py-3 px-2">

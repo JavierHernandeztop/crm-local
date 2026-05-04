@@ -1,7 +1,16 @@
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";
-import { ArrowRight, DollarSign, TrendingUp, Users, Target } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  DollarSign,
+  Inbox,
+  PieChart,
+  Target,
+  TrendingUp,
+  Users,
+} from "lucide-react";
 import {
   Card,
   CardContent,
@@ -79,7 +88,11 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             {metrics.salesByMonth.length === 0 ? (
-              <EmptyState text="Aún no hay ventas registradas." />
+              <EmptyState
+                icon={<TrendingUp className="h-7 w-7" strokeWidth={1.5} />}
+                title="Tu primera venta está cerca"
+                text="Cuando registres pagos verás aquí tu evolución mensual."
+              />
             ) : (
               <SalesByMonthChart
                 data={metrics.salesByMonth}
@@ -96,7 +109,11 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             {metrics.leadsBySource.length === 0 ? (
-              <EmptyState text="Aún no hay leads registrados." />
+              <EmptyState
+                icon={<PieChart className="h-7 w-7" strokeWidth={1.5} />}
+                title="Aún no hay leads"
+                text="Agrega tu primer contacto para empezar a medir."
+              />
             ) : (
               <LeadsBySourceChart data={metrics.leadsBySource} />
             )}
@@ -121,7 +138,11 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             {closed.length === 0 ? (
-              <EmptyState text="Aún no hay clientes cerrados." />
+              <EmptyState
+                icon={<Inbox className="h-7 w-7" strokeWidth={1.5} />}
+                title="Aún sin cierres"
+                text="El primer cliente cerrado aparecerá aquí."
+              />
             ) : (
               <ul className="divide-y divide-border">
                 {closed.map((c) => (
@@ -175,7 +196,11 @@ export default function DashboardPage() {
               <StaleStat count={stale.day7.length} label="7+ días" tone="destructive" />
             </div>
             {stale.total === 0 ? (
-              <EmptyState text="¡Todo al día!" />
+              <EmptyState
+                icon={<CheckCircle2 className="h-7 w-7" strokeWidth={1.5} />}
+                title="¡Todo al día!"
+                text="Ningún lead te está esperando."
+              />
             ) : (
               <ul className="divide-y divide-border">
                 {[...stale.day7, ...stale.day3, ...stale.day1]
@@ -214,13 +239,17 @@ function MetricCard({
   icon: React.ReactNode;
 }) {
   return (
-    <Card>
+    <Card className="border border-white/5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-purple-500/10">
       <CardContent className="pt-6">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm text-muted-foreground">{label}</span>
-          <span className="text-muted-foreground">{icon}</span>
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-sm text-gray-400 tracking-wide">{label}</span>
+          <span className="bg-white/5 rounded-full p-2 text-muted-foreground">
+            {icon}
+          </span>
         </div>
-        <div className="text-2xl font-semibold tracking-tight">{value}</div>
+        <div className="text-2xl font-bold tracking-tight tabular-nums">
+          {value}
+        </div>
         {hint && (
           <p className="text-xs text-muted-foreground mt-1">{hint}</p>
         )}
@@ -251,10 +280,26 @@ function StaleStat({
   );
 }
 
-function EmptyState({ text }: { text: string }) {
+function EmptyState({
+  text,
+  title,
+  icon,
+}: {
+  text: string;
+  title?: string;
+  icon?: React.ReactNode;
+}) {
   return (
-    <div className="py-6 text-center text-sm text-muted-foreground">
-      {text}
+    <div className="py-8 text-center flex flex-col items-center gap-2">
+      {icon && (
+        <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-accent/40 text-muted-foreground/70">
+          {icon}
+        </div>
+      )}
+      {title && (
+        <p className="text-sm font-medium text-foreground">{title}</p>
+      )}
+      <p className="text-xs text-muted-foreground max-w-xs">{text}</p>
     </div>
   );
 }
